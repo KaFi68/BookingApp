@@ -12,9 +12,9 @@ export const createHotel = async (req ,res ,next)=> {
 }
 export const updateHotel = async (req ,res ,next)=> {
     try{
-        await Hotel.findByIdAndDelete(req.params.id);
-        res.status(200).json("Hotel has been deleted");
-
+        const updateHotel = await Hotel.findByIdAndUpdate(req.params.id, {$set: req.body},{new:true});
+    
+        res.status(200).json(updateHotel);
     }catch(err){
         next(err);
     }
@@ -30,7 +30,7 @@ export const deleteHotel = async (req ,res ,next)=> {
 }
 export const getHotel = async (req ,res ,next)=> {
     try{
-        const hotels = await hotel.findById(req.params.id);
+        const hotel = await hotel.findById(req.params.id);
         res.status(200).json(hotel);
 
     }catch(err){
